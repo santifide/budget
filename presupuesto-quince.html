@@ -1,83 +1,324 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Presupuesto Quince Años - Fidelio Fotografía</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos para el scroll-snap */
+        .snap-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+        .snap-section {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+        .bg-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .content-center {
+            position: relative;
+            z-index: 2;
+        }
+        .scroll-arrow {
+            position: absolute;
+            z-index: 10;
+        }
+    </style>
 </head>
-<body>
-    <section class="bg-white dark:bg-gray-900">
-    <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-        <div class="mr-auto place-self-center lg:col-span-7">
-            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Presupuesto de fotografía</h1>
-            <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Aquí encontrarás los precios de los servicios para fotografía y video</p>
-            <a href="#" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
-                Get started
-                <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+<body class="bg-gray-900 text-white font-sans">
+
+    <!-- Menú de Navegación -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 bg-black bg-opacity-50 backdrop-blur-sm p-4 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold">Fidelio</a>
+            <nav class="hidden md:flex space-x-4">
+                <a href="#porque" class="hover:text-pink-400 transition-colors">Importancia</a>
+                <a href="#previa" class="hover:text-pink-400 transition-colors">Sesión Previa</a>
+                <a href="#fiesta" class="hover:text-pink-400 transition-colors">Fiesta</a>
+                <a href="#pintada" class="hover:text-pink-400 transition-colors">Pintada</a>
+                <a href="#fotolibros" class="hover:text-pink-400 transition-colors">Fotolibros</a>
+                <a href="#invitacion" class="hover:text-pink-400 transition-colors">Invitación Digital</a>
+                <a href="#video" class="hover:text-pink-400 transition-colors">Video</a>
+                <a href="#terminos" class="hover:text-pink-400 transition-colors">Términos</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden z-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+    <!-- Menú Móvil -->
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-95 z-40 hidden flex-col items-center justify-center space-y-6 text-2xl">
+        <a href="#porque" class="mobile-link">Importancia</a>
+        <a href="#previa" class="mobile-link">Sesión Previa</a>
+        <a href="#fiesta" class="mobile-link">Fiesta</a>
+        <a href="#pintada" class="mobile-link">Pintada</a>
+        <a href="#fotolibros" class="mobile-link">Fotolibros</a>
+        <a href="#invitacion" class="mobile-link">Invitación Digital</a>
+        <a href="#video" class="mobile-link">Video</a>
+        <a href="#terminos" class="mobile-link">Términos</a>
+    </div>
+
+    <main class="snap-container">
+
+        <!-- SECCIÓN 1: HERO -->
+        <section id="hero" class="snap-section flex items-center justify-center text-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/2d3748/eaeaea?text=Tu+Logo+Aqui');">
+            <div class="content-center max-w-3xl mx-auto px-4">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">Fidelio, fotografiando sueños.</h1>
+                <p class="text-lg md:text-2xl text-gray-300 mb-8">Bienvenida a tu presupuesto personalizado. Aquí comienza el viaje para inmortalizar uno de los momentos más especiales de tu vida.</p>
+                <a href="#porque" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105">
+                    Comenzar
+                </a>
+            </div>
+            <a href="#porque" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
             </a>
-            <a href="#" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                Speak to Sales
-            </a> 
-        </div>
-        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup">
-        </div>                
-    </div>
-</section>
+        </section>
 
-<div class="bg-white dark:bg-gray-900">
-    <div class="container px-6 py-8 mx-auto">
-        <h1 class="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">Pricing Plan</h1>
-
-        <p class="max-w-2xl mx-auto mt-4 text-center text-gray-500 xl:mt-6 dark:text-gray-300">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias quas magni libero consequuntur voluptatum velit amet id repudiandae ea, deleniti laborum in neque eveniet.
-        </p>
-
-        <div class="grid grid-cols-1 gap-8 mt-6 xl:mt-12 xl:gap-12 md:grid-cols-2 lg:grid-cols-3">
-            <div class="w-full p-8 space-y-8 text-center border border-gray-200 rounded-lg dark:border-gray-700">
-                <p class="font-medium text-gray-500 uppercase dark:text-gray-300">Free</p>
-
-                <h2 class="text-4xl font-semibold text-gray-800 uppercase dark:text-gray-100">
-                    $0
-                </h2>
-
-                <p class="font-medium text-gray-500 dark:text-gray-300">Life time</p>
-
-                <button class="w-full px-4 py-2 mt-10 tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                    Start Now
-                </button>
+        <!-- SECCIÓN 2: PORQUÉ ES IMPORTANTE -->
+        <section id="porque" class="snap-section flex items-center justify-center text-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/4a5568/eaeaea?text=Momentos+Unicos');">
+            <div class="content-center max-w-3xl mx-auto px-4 ">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Un recuerdo para toda la vida</h2>
+                <p class="text-xl md:text-2xl text-gray-200">Tu cumpleaños de quince es un evento único, un instante que no se repetirá. Los momentos, las risas y las emociones son fugaces, pero la fotografía los hace eternos. Estoy presente en cada detalle, inmortalizando la magia de tu noche para que puedas revivirla siempre.</p>
             </div>
+            <a href="#previa" class="scroll-arrow absolute bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
 
-            <div class="w-full p-8 space-y-8 text-center bg-blue-600 rounded-lg">
-                <p class="font-medium text-gray-200 uppercase">Premium</p>
-
-                <h2 class="text-5xl font-bold text-white uppercase dark:text-gray-100">
-                    $40
-                </h2>
-
-                <p class="font-medium text-gray-200">Per month</p>
-
-                <button class="w-full px-4 py-2 mt-10 tracking-wide text-blue-500 capitalize transition-colors duration-300 transform bg-white rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:ring focus:ring-gray-200 focus:ring-opacity-80">
-                    Start Now
-                </button>
+        <!-- SECCIÓN 3: SESIÓN PREVIA -->
+        <section id="previa" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/718096/eaeaea?text=Sesion+Previa');">
+            <div class="content-center container mx-auto px-4 text-center ">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Sesión de Fotos Previa</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Juntas diseñamos tu sesión soñada. A través de bocetos y un brief creativo, planificamos cada detalle: los colores, las luces, los contrastes y la temática para que las fotos reflejen tu esencia.</p>
+                <div class="flex flex-col md:flex-row justify-center gap-8">
+                    <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700 w-full md:w-1/3">
+                        <h3 class="text-2xl font-bold text-pink-400 mb-2">Sesión Express</h3>
+                        <p class="text-4xl font-bold mb-4">$80.000</p>
+                        <p class="text-gray-300">1:30hs de sesión aprox.</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-pink-500 w-full md:w-1/3 ring-2 ring-pink-500">
+                        <h3 class="text-2xl font-bold text-pink-400 mb-2">Sesión Completa</h3>
+                        <p class="text-4xl font-bold mb-4">$120.000</p>
+                        <p class="text-gray-300">3hs de sesión aprox.<br>(Apto para viajes a Rosario)</p>
+                    </div>
+                </div>
             </div>
+            <a href="#fiesta" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
 
-            <div class="w-full p-8 space-y-8 text-center border border-gray-200 rounded-lg dark:border-gray-700">
-                <p class="font-medium text-gray-500 uppercase dark:text-gray-300">Enterprise</p>
-
-                <h2 class="text-4xl font-semibold text-gray-800 uppercase dark:text-gray-100">
-                    $100
-                </h2>
-
-                <p class="font-medium text-gray-500 dark:text-gray-300">Life time</p>
-
-                <button class="w-full px-4 py-2 mt-10 tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                    Start Now
-                </button>
+        <!-- SECCIÓN 4: FIESTA -->
+        <section id="fiesta" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/a0aec0/2d3748?text=La+Fiesta');">
+            <div class="content-center container mx-auto px-4 text-center ">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Cobertura de la Fiesta</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Desde los preparativos hasta el último baile, capturo la energía y la alegría de tu gran noche sin perderme un solo instante.</p>
+                <div class="flex flex-col md:flex-row justify-center gap-8">
+                    <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700 w-full md:w-1/3">
+                        <h3 class="text-2xl font-bold text-pink-400 mb-2">Cobertura Total</h3>
+                        <p class="text-4xl font-bold mb-4">$350.000</p>
+                        <p class="text-gray-300">Toda la noche, desde la previa hasta el final.</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-pink-500 w-full md:w-1/3 ring-2 ring-pink-500">
+                        <h3 class="text-2xl font-bold text-pink-400 mb-2">Cobertura Premium</h3>
+                        <p class="text-4xl font-bold mb-4">$420.000</p>
+                        <p class="text-gray-300">Incluye slide de fotos de la infancia + pendrive con todas las fotos.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
+            <a href="#pintada" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <!-- SECCIÓN 5: PINTADA -->
+        <section id="pintada" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/e2e8f0/2d3748?text=La+Pintada');">
+            <div class="content-center container mx-auto px-4 text-center ">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Fotografía de la Pintada</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Capturamos la emoción y la sorpresa de la tradicional pintada. Desde los preparativos de tus amigas hasta el momento en que sales a la medianoche y descubres la sorpresa.</p>
+                <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700 max-w-md mx-auto">
+                    <p class="text-lg text-gray-300">Primera hora: $60.000</p>
+                    <p class="text-lg text-gray-300 mb-4">Horas adicionales: $40.000 p/hora</p>
+                    <div class="flex items-center justify-center space-x-4 my-4">
+                        <label for="horas-pintada" class="text-lg">Horas totales:</label>
+                        <input type="number" id="horas-pintada" value="1" min="1" step="0.5" class="bg-gray-700 text-white text-center w-20 p-2 rounded">
+                    </div>
+                    <p class="text-3xl font-bold">Total: <span id="precio-pintada">$60.000</span></p>
+                </div>
+            </div>
+            <a href="#fotolibros" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <!-- SECCIÓN 6: FOTOLIBROS -->
+        <section id="fotolibros" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/2d3748/eaeaea?text=Fotolibros');">
+            <div class="content-center container mx-auto px-4 text-center ">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Fotolibros: Tu Historia Impresa</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <!-- Libro 1 -->
+                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-xl font-bold text-pink-400 mb-2">Fotolibro Sesión Previa</h3>
+                        <p class="text-3xl font-bold mb-3">$146.400</p>
+                        <ul class="text-left text-gray-300 space-y-1">
+                            <li><strong>Tamaño:</strong> 30x60cm (abierto)</li>
+                            <li><strong>Tapa:</strong> Fotográfica rígida</li>
+                            <li><strong>Hojas:</strong> 10</li>
+                        </ul>
+                    </div>
+                    <!-- Libro 2 -->
+                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-pink-500 ring-2 ring-pink-500">
+                        <h3 class="text-xl font-bold text-pink-400 mb-2">Fotolibro Fiesta</h3>
+                        <p class="text-3xl font-bold mb-3">$266.400</p>
+                        <ul class="text-left text-gray-300 space-y-1">
+                            <li><strong>Tamaño:</strong> 30x60cm (abierto)</li>
+                            <li><strong>Tapa:</strong> Fotográfica rígida</li>
+                            <li><strong>Hojas:</strong> 20</li>
+                        </ul>
+                    </div>
+                    <!-- Libro 3 -->
+                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-xl font-bold text-pink-400 mb-2">Libro Firmas 30x90</h3>
+                        <p class="text-3xl font-bold mb-3">$76.400</p>
+                        <ul class="text-left text-gray-300 space-y-1">
+                            <li><strong>Tamaño:</strong> 30x90cm (abierto)</li>
+                            <li><strong>Tapa:</strong> Fotográfica flexible</li>
+                            <li><strong>Hojas:</strong> 4</li>
+                        </ul>
+                    </div>
+                    <!-- Libro 4 -->
+                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-xl font-bold text-pink-400 mb-2">Libro Firmas 30x60</h3>
+                        <p class="text-3xl font-bold mb-3">$51.600</p>
+                        <ul class="text-left text-gray-300 space-y-1">
+                            <li><strong>Tamaño:</strong> 30x60cm (abierto)</li>
+                            <li><strong>Tapa:</strong> Fotográfica flexible</li>
+                            <li><strong>Hojas:</strong> 4</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#invitacion" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <!-- SECCIÓN 7: INVITACIÓN DIGITAL -->
+        <section id="invitacion" class="snap-section flex items-center justify-center text-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/4a5568/eaeaea?text=Invitacion+Digital');">
+            <div class="content-center max-w-3xl mx-auto px-4 ">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Invitación Digital Interactiva</h2>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8">Sorprende a tus invitados con una web moderna y dinámica. Podrás incluir tu música preferida, las fotos de la sesión previa, un video-invitación y actualizar la información cuando quieras. ¡Una invitación que nadie olvidará!</p>
+                <a href="http://www.fidelio.com.ar/invitacion" target="_blank" class="bg-white hover:bg-gray-200 text-gray-800 font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105">
+                    Ver Muestra
+                </a>
+            </div>
+            <a href="#video" class="scroll-arrow absolute bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <!-- SECCIÓN 8: VIDEO -->
+        <section id="video" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/718096/eaeaea?text=Video');">
+            <div class="content-center container mx-auto px-4 text-center ">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Video: La Película de tu Noche</h2>
+                <div class="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
+                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700 flex-1">
+                        <h3 class="text-xl font-bold text-pink-400 mb-2">Video Backstage Previo</h3>
+                        <p class="text-3xl font-bold">$220.000</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-pink-500 ring-2 ring-pink-500 flex-1">
+                        <h3 class="text-xl font-bold text-pink-400 mb-2">Video Fiesta</h3>
+                        <p class="text-3xl font-bold">$550.000</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700 flex-1">
+                        <h3 class="text-xl font-bold text-pink-400 mb-2">Video Pintada</h3>
+                        <p class="text-3xl font-bold">$150.000</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#terminos" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <!-- SECCIÓN 9: TÉRMINOS Y CONDICIONES -->
+        <section id="terminos" class="snap-section flex items-center justify-center bg-gray-800">
+            <div class="content-center container mx-auto px-6 py-16 max-w-4xl overflow-y-auto h-full ">
+                <h2 class="text-3xl font-bold mb-6 text-center">Términos y Condiciones</h2>
+                <ul class="text-sm text-gray-300 space-y-3 text-left list-disc list-inside">
+                    <li>El servicio fotográfico debe abonarse al 100% antes del evento. Una vez abonado el total del servicio, se congela el precio. En caso de que haya un aumento, este solo se aplicará al porcentaje no abonado.</li>
+                    <li>Los valores del laboratorio fotográfico están sujetos a cambios sin previo aviso.</li>
+                    <li>El material digital de la fiesta estará disponible aproximadamente una semana después del evento.</li>
+                    <li>Para la sesión de fotos previa, se recomienda contratar servicio de maquillaje y peluquería, ya que esto es muy importante para garantizar la calidad de las tomas fotográficas, especialmente en materiales impresos, pantallas gigantes, fotoinvitaciones, entre otros.</li>
+                    <li>La sesión de fotos previa tiene una duración aproximada de 2 horas, con un máximo de 3 horas, y se realiza en un único día (no se puede dividir). Durante este tiempo, se pueden realizar tomas en el estudio fotográfico, al aire libre, de día o nocturnas, según se desee. Las fotos se realizan exclusivamente en Totoras y alrededores (con una tolerancia de 10 km). Para sesiones en otras locaciones, se deberá cotizar el costo adicional por distancia y viáticos.</li>
+                    <li>Para disponer de soportes impresos en la fiesta (fotolibros, cuadros, gigantografías, etc.), la sesión de fotos debe realizarse al menos 45 días antes del evento.</li>
+                    <li>El fotógrafo podrá utilizar el material capturado para fines promocionales en redes sociales. Si prefieren que esto no ocurra, les agradecemos informarlo con anticipación para respetar su decisión.</li>
+                    <li>Todas las fotos serán subidas a una galería web desde la cual podrán compartir el material, visualizarlo en el celular y descargar las fotos que deseen. La galería estará disponible durante varios años; sin embargo, se recomienda realizar un respaldo (backup) del material.</li>
+                    <li>En eventos con una duración superior a 4 horas, se solicita que el cliente provea al fotógrafo un refrigerio o una breve comida durante la cobertura.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Script para el menú móvil
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const mainHeader = document.getElementById('main-header');
+
+        const toggleMenu = () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            // Cambia el ícono de hamburguesa a X y viceversa
+            menuBtn.innerHTML = mobileMenu.classList.contains('hidden')
+                ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>`
+                : `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
+        };
+
+        menuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Script para el cálculo de precio de "La Pintada"
+        const horasInput = document.getElementById('horas-pintada');
+        const precioPintadaSpan = document.getElementById('precio-pintada');
+        const precioBase = 60000;
+        const precioPorHoraAdicional = 40000;
+
+        horasInput.addEventListener('input', () => {
+            let horas = parseFloat(horasInput.value);
+            if (isNaN(horas) || horas < 1) {
+                horas = 1;
+                horasInput.value = 1;
+            }
+
+            let costoTotal = precioBase;
+            if (horas > 1) {
+                costoTotal += (horas - 1) * precioPorHoraAdicional;
+            }
+
+            precioPintadaSpan.textContent = `$${costoTotal.toLocaleString('es-AR')}`;
+        });
+    </script>
+
 </body>
 </html>
