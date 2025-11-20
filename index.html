@@ -106,6 +106,20 @@
             font-weight: bold;
             cursor: pointer;
         }
+        /* Estilos para forzar las flechas en el input de número */
+        .number-input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .number-input-button {
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            user-select: none; /* Evita la selección de texto al hacer clic rápido */
+            color: #f3f4f6; /* text-gray-100 */
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
@@ -244,9 +258,13 @@
                 <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700 max-w-md mx-auto">
                     <p class="text-lg text-gray-300">Primera hora: $60.000</p>
                     <p class="text-lg text-gray-300 mb-4">Horas adicionales: $40.000 p/hora</p>
-                    <div class="flex items-center justify-center space-x-4 my-4">
+                    <div class="my-4">
                         <label for="horas-pintada" class="text-lg">Horas totales:</label>
-                        <input type="number" id="horas-pintada" value="1" min="1" step="0.5" class="bg-gray-700 text-white text-center w-20 p-2 rounded">
+                        <div class="number-input-container mt-2">
+                            <button id="pintada-decrement" class="number-input-button">-</button>
+                            <input type="number" id="horas-pintada" value="1" min="1" step="0.5" class="bg-gray-700 text-white text-center w-20 p-2 rounded appearance-none [-moz-appearance:textfield]">
+                            <button id="pintada-increment" class="number-input-button">+</button>
+                        </div>
                     </div>
                     <p class="text-3xl font-bold">Total: <span id="precio-pintada">$60.000</span></p>
                 </div>
@@ -271,9 +289,11 @@
                 <h2 class="text-4xl md:text-5xl font-bold mb-8">Fotolibros: Tu Historia Impresa</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                     <!-- Libro 1 -->
-                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700">
-                        <h3 class="text-xl font-bold text-pink-400 mb-2">Fotolibro Sesión Previa</h3>
-                        <p class="text-3xl font-bold mb-3">$146.400</p>
+                    <div class="bg-gray-800 bg-opacity-75 p-4 md:p-6 rounded-lg border border-gray-700">
+                        <div class="flex justify-between">
+                            <h4 class="text-lg md:text-xl font-bold text-pink-400 mb-2">Fotolibro Sesión Previa</h4>
+                            <p class="text-xl md:text-2xl font-bold mb-3">$146.400</p>
+                        </div>
                         <ul class="text-left text-gray-300 space-y-1">
                             <li><strong>Tamaño:</strong> 30x60cm (abierto)</li>
                             <li><strong>Tapa:</strong> Fotográfica rígida</li>
@@ -281,9 +301,11 @@
                         </ul>
                     </div>
                     <!-- Libro 2 -->
-                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-pink-500 ring-2 ring-pink-500">
-                        <h3 class="text-xl font-bold text-pink-400 mb-2">Fotolibro Fiesta</h3>
-                        <p class="text-3xl font-bold mb-3">$266.400</p>
+                    <div class="bg-gray-800 bg-opacity-75 p-4 md:p-6 rounded-lg border border-pink-500 ring-2 ring-pink-500">
+                        <div class="flex justify-between">
+                            <h4 class="text-lg md:text-xl font-bold text-pink-400 mb-2">Fotolibro Fiesta</h4>
+                            <p class="text-xl md:text-2xl font-bold mb-3">$266.400</p>
+                        </div>
                         <ul class="text-left text-gray-300 space-y-1">
                             <li><strong>Tamaño:</strong> 30x60cm (abierto)</li>
                             <li><strong>Tapa:</strong> Fotográfica rígida</li>
@@ -291,9 +313,11 @@
                         </ul>
                     </div>
                     <!-- Libro 3 -->
-                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700">
-                        <h3 class="text-xl font-bold text-pink-400 mb-2">Libro Firmas 30x90</h3>
-                        <p class="text-3xl font-bold mb-3">$76.400</p>
+                    <div class="bg-gray-800 bg-opacity-75 p-4 md:p-6 rounded-lg border border-gray-700">
+                        <div class="flex justify-between">
+                            <h4 class="text-lg md:text-xl font-bold text-pink-400 mb-2">Libro Firmas 30x90</h4>
+                            <p class="text-xl md:text-2xl font-bold mb-3">$76.400</p>
+                        </div>
                         <ul class="text-left text-gray-300 space-y-1">
                             <li><strong>Tamaño:</strong> 30x90cm (abierto)</li>
                             <li><strong>Tapa:</strong> Fotográfica flexible</li>
@@ -301,9 +325,11 @@
                         </ul>
                     </div>
                     <!-- Libro 4 -->
-                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700">
-                        <h3 class="text-xl font-bold text-pink-400 mb-2">Libro Firmas 30x60</h3>
-                        <p class="text-3xl font-bold mb-3">$51.600</p>
+                    <div class="bg-gray-800 bg-opacity-75 p-4 md:p-6 rounded-lg border border-gray-700">
+                        <div class="flex justify-between">
+                            <h4 class="text-lg md:text-xl font-bold text-pink-400 mb-2">Libro Firmas 30x60</h4>
+                            <p class="text-xl md:text-2xl font-bold mb-3">$51.600</p>
+                        </div>
                         <ul class="text-left text-gray-300 space-y-1">
                             <li><strong>Tamaño:</strong> 30x60cm (abierto)</li>
                             <li><strong>Tapa:</strong> Fotográfica flexible</li>
@@ -421,6 +447,9 @@
         const precioPintadaSpan = document.getElementById('precio-pintada');
         const precioBase = 60000;
         const precioPorHoraAdicional = 40000;
+        const decrementBtn = document.getElementById('pintada-decrement');
+        const incrementBtn = document.getElementById('pintada-increment');
+        const step = 0.5;
 
         horasInput.addEventListener('input', () => {
             let horas = parseFloat(horasInput.value);
@@ -436,6 +465,22 @@
 
             precioPintadaSpan.textContent = `$${costoTotal.toLocaleString('es-AR')}`;
         });
+
+        decrementBtn.addEventListener('click', () => {
+            let currentValue = parseFloat(horasInput.value);
+            if (currentValue - step >= 1) {
+                horasInput.value = (currentValue - step).toFixed(1);
+                horasInput.dispatchEvent(new Event('input')); // Dispara el evento para recalcular
+            }
+        });
+
+        incrementBtn.addEventListener('click', () => {
+            let currentValue = parseFloat(horasInput.value);
+            // No hay límite superior definido, así que solo incrementamos
+            horasInput.value = (currentValue + step).toFixed(1);
+            horasInput.dispatchEvent(new Event('input')); // Dispara el evento para recalcular
+        });
+
 
         // Script para el carrusel de fondos
         document.addEventListener('DOMContentLoaded', () => {
