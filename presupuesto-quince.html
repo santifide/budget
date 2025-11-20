@@ -37,6 +37,75 @@
             position: absolute;
             z-index: 10;
         }
+        .bg-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .bg-carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .bg-carousel-image.active {
+            opacity: 1;
+        }
+        .bg-carousel video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+        }
+        /* Estilos para el Popup de Video */
+        .video-popup {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        .video-popup-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            /* Aspect ratio 16:9 */
+            padding-top: 50.625%; /* 9 / 16 * 100% */
+        }
+        .video-popup iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .video-popup-close {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
@@ -75,9 +144,12 @@
     </div>
 
     <main class="snap-container">
-
+ fotos/fiesta/fiesta-14.jpg fotos/fiesta/fiesta-1.jpg
         <!-- SECCIÓN 1: HERO -->
-        <section id="hero" class="snap-section flex items-center justify-center text-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/2d3748/eaeaea?text=Tu+Logo+Aqui');">
+        <section id="hero" class="snap-section flex items-center justify-center text-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/fiesta/fiesta-14.jpg","fotos/fiesta/fiesta-1.jpg","fotos/fiesta/fiesta-8.webp"]'>
+                <!-- Las imágenes de fondo se insertarán aquí por JS -->
+            </div>
             <div class="content-center max-w-3xl mx-auto px-4">
                 <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">Fidelio, fotografiando sueños.</h1>
                 <p class="text-lg md:text-2xl text-gray-300 mb-8">Bienvenida a tu presupuesto personalizado. Aquí comienza el viaje para inmortalizar uno de los momentos más especiales de tu vida.</p>
@@ -91,7 +163,10 @@
         </section>
 
         <!-- SECCIÓN 2: PORQUÉ ES IMPORTANTE -->
-        <section id="porque" class="snap-section flex items-center justify-center text-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/4a5568/eaeaea?text=Momentos+Unicos');">
+        <section id="porque" class="snap-section flex items-center justify-center text-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/fiesta/fiesta-6.webp", "fotos/fiesta/fiesta-3.jpg", "fotos/fiesta/fiesta-4.webp", "fotos/fiesta/fiesta-5.webp"]'>
+                <!-- Las imágenes de fondo se insertarán aquí por JS -->
+            </div>
             <div class="content-center max-w-3xl mx-auto px-4 ">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">Un recuerdo para toda la vida</h2>
                 <p class="text-xl md:text-2xl text-gray-200">Tu cumpleaños de quince es un evento único, un instante que no se repetirá. Los momentos, las risas y las emociones son fugaces, pero la fotografía los hace eternos. Estoy presente en cada detalle, inmortalizando la magia de tu noche para que puedas revivirla siempre.</p>
@@ -102,7 +177,11 @@
         </section>
 
         <!-- SECCIÓN 3: SESIÓN PREVIA -->
-        <section id="previa" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/718096/eaeaea?text=Sesion+Previa');">
+        <section id="previa" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/previa/previa-2.jpg", "fotos/previa/previa-4.webp", "fotos/previa/previa-5.jpg", "fotos/previa/previa-8.jpg", "fotos/previa/previa-9.jpg", "fotos/previa/previa-10.jpg", "fotos/previa/previa-1.jpg"
+            ]'>
+                <!-- Las imágenes de fondo se insertarán aquí por JS -->
+            </div>
             <div class="content-center container mx-auto px-4 text-center ">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">Sesión de Fotos Previa</h2>
                 <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Juntas diseñamos tu sesión soñada. A través de bocetos y un brief creativo, planificamos cada detalle: los colores, las luces, los contrastes y la temática para que las fotos reflejen tu esencia.</p>
@@ -125,7 +204,12 @@
         </section>
 
         <!-- SECCIÓN 4: FIESTA -->
-        <section id="fiesta" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/a0aec0/2d3748?text=La+Fiesta');">
+        <section id="fiesta" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='[
+           "fotos/fiesta/fiesta-9.jpg", "fotos/fiesta/fiesta-10.jpg", "fotos/fiesta/fiesta-2.jpg", "fotos/fiesta/fiesta-4.jpg", "fotos/fiesta/fiesta-7.webp"
+            ]'>
+                <!-- Las imágenes de fondo se insertarán aquí por JS -->
+            </div>
             <div class="content-center container mx-auto px-4 text-center ">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">Cobertura de la Fiesta</h2>
                 <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Desde los preparativos hasta el último baile, capturo la energía y la alegría de tu gran noche sin perderme un solo instante.</p>
@@ -133,7 +217,7 @@
                     <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700 w-full md:w-1/3">
                         <h3 class="text-2xl font-bold text-pink-400 mb-2">Cobertura Total</h3>
                         <p class="text-4xl font-bold mb-4">$350.000</p>
-                        <p class="text-gray-300">Toda la noche, desde la previa hasta el final.</p>
+                        <p class="text-gray-300">Toda la noche, desde la previa hasta el final. <em><br><small>No incluye historia de fotos, ni pendrive</small></em></p>
                     </div>
                     <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-pink-500 w-full md:w-1/3 ring-2 ring-pink-500">
                         <h3 class="text-2xl font-bold text-pink-400 mb-2">Cobertura Premium</h3>
@@ -148,7 +232,12 @@
         </section>
 
         <!-- SECCIÓN 5: PINTADA -->
-        <section id="pintada" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/e2e8f0/2d3748?text=La+Pintada');">
+        <section id="pintada" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='[
+            "fotos/pintada/44-loa-pintada-15-300DPI.jpg", "fotos/pintada/127-huilen-pintada-web.jpg", "fotos/pintada/54-loa-pintada-15-300DPI.jpg"
+            ]'>
+                <!-- Las imágenes de fondo se insertarán aquí por JS -->
+            </div>
             <div class="content-center container mx-auto px-4 text-center ">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">Fotografía de la Pintada</h2>
                 <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Capturamos la emoción y la sorpresa de la tradicional pintada. Desde los preparativos de tus amigas hasta el momento en que sales a la medianoche y descubres la sorpresa.</p>
@@ -168,7 +257,16 @@
         </section>
 
         <!-- SECCIÓN 6: FOTOLIBROS -->
-        <section id="fotolibros" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/2d3748/eaeaea?text=Fotolibros');">
+        <section id="fotolibros" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='[
+"fotos/fotolibro/51-juli-fiesta-web.jpg",
+ "fotos/fotolibro/86-pauli-robles-XV.jpg",
+ "fotos/fotolibro/87-pauli-robles-XV.jpg",
+ "fotos/fotolibro/88-pauli-robles-XV.jpg",
+ "fotos/fotolibro/89-pauli-robles-XV.jpg"
+            ]'>
+                <!-- Las imágenes de fondo se insertarán aquí por JS -->
+            </div>
             <div class="content-center container mx-auto px-4 text-center ">
                 <h2 class="text-4xl md:text-5xl font-bold mb-8">Fotolibros: Tu Historia Impresa</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -213,6 +311,9 @@
                         </ul>
                     </div>
                 </div>
+                <div class="mt-8">
+                    <button class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full text-sm" onclick="openPopup('fotolibro')">Ver video ¿Qué es un fotolibro?</button>
+                </div>
             </div>
             <a href="#invitacion" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
@@ -220,11 +321,14 @@
         </section>
 
         <!-- SECCIÓN 7: INVITACIÓN DIGITAL -->
-        <section id="invitacion" class="snap-section flex items-center justify-center text-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/4a5568/eaeaea?text=Invitacion+Digital');">
+        <section id="invitacion" class="snap-section flex items-center justify-center text-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/invitacion/36-dalma-luciano-previa-web.jpg"]'>
+                <!-- Las imágenes de fondo se insertarán aquí por JS -->
+            </div>
             <div class="content-center max-w-3xl mx-auto px-4 ">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">Invitación Digital Interactiva</h2>
                 <p class="text-xl md:text-2xl text-gray-200 mb-8">Sorprende a tus invitados con una web moderna y dinámica. Podrás incluir tu música preferida, las fotos de la sesión previa, un video-invitación y actualizar la información cuando quieras. ¡Una invitación que nadie olvidará!</p>
-                <a href="http://www.fidelio.com.ar/invitacion" target="_blank" class="bg-white hover:bg-gray-200 text-gray-800 font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105">
+                <a href="http://www.fidelio.com.ar/invitaciones/dalma-luciano" target="_blank" class="bg-white hover:bg-gray-200 text-gray-800 font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105">
                     Ver Muestra
                 </a>
             </div>
@@ -234,21 +338,27 @@
         </section>
 
         <!-- SECCIÓN 8: VIDEO -->
-        <section id="video" class="snap-section flex items-center justify-center bg-cover bg-center bg-no-repeat bg-overlay" style="background-image: url('https://placehold.co/1920x1080/718096/eaeaea?text=Video');">
+        <section id="video" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-video="fotos/videos/background-video-horizontal-lowest.mp4">
+                <!-- Las imágenes de fondo se insertarán aquí por JS -->
+            </div>
             <div class="content-center container mx-auto px-4 text-center ">
                 <h2 class="text-4xl md:text-5xl font-bold mb-8">Video: La Película de tu Noche</h2>
                 <div class="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
                     <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700 flex-1">
                         <h3 class="text-xl font-bold text-pink-400 mb-2">Video Backstage Previo</h3>
-                        <p class="text-3xl font-bold">$220.000</p>
+                        <p class="text-3xl font-bold mb-4">$220.000</p>
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full text-sm" onclick="openPopup('backstage')">Ver muestra</button>
                     </div>
                     <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-pink-500 ring-2 ring-pink-500 flex-1">
                         <h3 class="text-xl font-bold text-pink-400 mb-2">Video Fiesta</h3>
-                        <p class="text-3xl font-bold">$550.000</p>
+                        <p class="text-3xl font-bold mb-4">$550.000</p>
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full text-sm" onclick="openPopup('fiesta')">Ver muestra</button>
                     </div>
                     <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700 flex-1">
                         <h3 class="text-xl font-bold text-pink-400 mb-2">Video Pintada</h3>
-                        <p class="text-3xl font-bold">$150.000</p>
+                        <p class="text-3xl font-bold mb-4">$180.000</p>
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full text-sm" onclick="openPopup('pintada')">Ver muestra</button>
                     </div>
                 </div>
             </div>
@@ -256,6 +366,14 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
             </a>
         </section>
+
+        <!-- Contenedor del Popup de Video -->
+        <div id="video-popup" class="video-popup">
+            <div class="video-popup-content">
+                <span class="video-popup-close" onclick="closePopup()">&times;</span>
+                <div id="video-container"></div>
+            </div>
+        </div>
 
         <!-- SECCIÓN 9: TÉRMINOS Y CONDICIONES -->
         <section id="terminos" class="snap-section flex items-center justify-center bg-gray-800">
@@ -317,6 +435,92 @@
             }
 
             precioPintadaSpan.textContent = `$${costoTotal.toLocaleString('es-AR')}`;
+        });
+
+        // Script para el carrusel de fondos
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousels = document.querySelectorAll('.bg-carousel');
+
+            carousels.forEach(carousel => {
+                const videoSrc = carousel.dataset.video;
+                const imagesData = carousel.dataset.images;
+
+                if (videoSrc) {
+                    // Si es un video
+                    const videoEl = document.createElement('video');
+                    videoEl.src = videoSrc;
+                    videoEl.autoplay = true;
+                    videoEl.loop = true;
+                    videoEl.muted = true;
+                    videoEl.playsInline = true; // Importante para iOS
+                    carousel.appendChild(videoEl);
+                } else if (imagesData) {
+                    // Si son imágenes (lógica original del carrusel)
+                    const images = JSON.parse(imagesData);
+                    if (images.length === 0) return;
+
+                    // Crear elementos de imagen
+                    images.forEach((imgSrc, index) => {
+                        const imgDiv = document.createElement('div');
+                        imgDiv.className = 'bg-carousel-image';
+                        imgDiv.style.backgroundImage = `url('${imgSrc}')`;
+                        if (index === 0) {
+                            imgDiv.classList.add('active');
+                        }
+                        carousel.appendChild(imgDiv);
+                    });
+
+                    if (images.length > 1) {
+                        let currentIndex = 0;
+                        setInterval(() => {
+                            const imageDivs = carousel.querySelectorAll('.bg-carousel-image');
+                            imageDivs[currentIndex].classList.remove('active');
+                            
+                            currentIndex = (currentIndex + 1) % images.length;
+                            
+                            imageDivs[currentIndex].classList.add('active');
+                        }, 5000); // Cambia de imagen cada 5 segundos
+                    }
+                }
+            });
+        });
+
+        // Script para el Popup de Video
+        const videoPopup = document.getElementById('video-popup');
+        const videoContainer = document.getElementById('video-container');
+
+        const videoIds = {
+            pintada: 'CV8_r8ETZBI',
+            fiesta: 'ibaMsfM39Ew',
+            backstage: 'h5QJnz4IlvQ',
+            fotolibro:'LxES-Yvt7f4'
+        };
+
+        function openPopup(videoType) {
+            const videoId = videoIds[videoType];
+            if (videoId) {
+                videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                videoPopup.style.display = 'flex';
+            }
+        }
+
+        function closePopup() {
+            videoContainer.innerHTML = ''; // Detiene el video al remover el iframe
+            videoPopup.style.display = 'none';
+        }
+
+        // Cerrar popup al hacer clic fuera del contenido
+        videoPopup.addEventListener('click', function(event) {
+            if (event.target === videoPopup) {
+                closePopup();
+            }
+        });
+
+        // Cerrar popup con la tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closePopup();
+            }
         });
     </script>
 
