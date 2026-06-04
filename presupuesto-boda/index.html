@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto Boda - Fidelio Fotografía</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .snap-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+        .snap-section {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+        .bg-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.55);
+            z-index: 1;
+        }
+        .content-center {
+            position: relative;
+            z-index: 2;
+        }
+        .scroll-arrow {
+            position: absolute;
+            z-index: 10;
+        }
+        .bg-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .bg-carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .bg-carousel-image.active {
+            opacity: 1;
+        }
+        .video-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.93);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        .video-popup-content {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            padding-top: 56.25%;
+        }
+        .video-popup iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .video-popup-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2.25rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .slider-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow-x: auto;
+            overflow-y: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+        .slider-track {
+            display: flex;
+            height: 100%;
+            align-items: stretch;
+            white-space: nowrap;
+        }
+        .slider-slide {
+            flex: 0 0 100vw;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .slider-slide img {
+            width: auto;
+            height: 100vh;
+            max-width: 100vw;
+            object-fit: contain;
+        }
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 5;
+            pointer-events: none;
+        }
+        .slider-button {
+            pointer-events: auto;
+            background-color: rgba(0, 0, 0, 0.45);
+            border: none;
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 1rem;
+            cursor: pointer;
+        }
+        .slider-button:hover {
+            background-color: rgba(255, 255, 255, 0.18);
+        }
+        .slider-counter {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            z-index: 5;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.95rem;
+        }
+        .slider-mobile-note {
+            display: block;
+        }
+        @media (min-width: 768px) {
+            .slider-wrapper {
+                height: 60vh;
+            }
+            .slider-slide img {
+                height: 60vh;
+            }
+            .slider-mobile-note {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+    <header id="main-header" class="fixed top-0 left-0 right-0 bg-black bg-opacity-50 backdrop-blur-sm p-4 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold">Fidelio</a>
+            <nav class="hidden md:flex space-x-4">
+                <a href="#porque" class="hover:text-pink-400 transition-colors">Importancia</a>
+                <a href="#boda" class="hover:text-pink-400 transition-colors">Cobertura de la Boda</a>
+                <a href="#fotosenvivo" class="hover:text-pink-400 transition-colors">Fotos en vivo</a>
+                <a href="#galeria" class="hover:text-pink-400 transition-colors">Galería</a>
+                <a href="#video" class="hover:text-pink-400 transition-colors">Video</a>
+                <a href="#terminos" class="hover:text-pink-400 transition-colors">Términos</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden z-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-95 z-40 hidden flex-col items-center justify-center space-y-6 text-2xl">
+        <a href="#porque" class="mobile-link">Importancia</a>
+        <a href="#boda" class="mobile-link">Cobertura de la Boda</a>
+        <a href="#fotosenvivo" class="mobile-link">Fotos en vivo</a>
+        <a href="#galeria" class="mobile-link">Galería</a>
+        <a href="#video" class="mobile-link">Video</a>
+        <a href="#terminos" class="mobile-link">Términos</a>
+    </div>
+
+    <main class="snap-container">
+        <section id="hero" class="snap-section flex items-center justify-center text-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos-boda/1-fidelio-boda.jpg","fotos-boda/10-fidelio-boda.jpg","fotos-boda/20-fidelio-boda.jpg"]'></div>
+            <div class="content-center max-w-3xl mx-auto px-4">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">Tu boda en imágenes inolvidables</h1>
+                <p class="text-lg md:text-2xl text-gray-300 mb-8">Presupuesto personalizado para fotografiar cada emoción de tu gran día con estilo, luz y sensibilidad.</p>
+                <a href="#porque" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105">Ver detalles</a>
+            </div>
+            <a href="#porque" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="porque" class="snap-section flex items-center justify-center text-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos-boda/30-fidelio-boda.jpg","fotos-boda/40-fidelio-boda.jpg","fotos-boda/50-fidelio-boda.jpg"]'></div>
+            <div class="content-center max-w-3xl mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">¿Quién soy?</h2>
+                <p class="text-xl md:text-2xl text-gray-200">Soy Santiago Fidelio, fotógrafo desde el año 2007. Tengo más de 19 años de experiencia, dedicado a capturar momentos únicos con estilo y sensibilidad, sin descuidar la estética, la iluminación y la calidad de las tomas. Amo esta profesión y me enorgullece poder contar tu historia a través de mis imágenes. He vivido innumerables bodas, y entiendo la importancia de un momento único e irrepetible, he pasado por todo tipo de experiencias, aciertos y errores, lo que me permitió construir una forma de trabajo segura a base de experiencia, entrenamiento y conocimiento teórico de iluminación y composición.</p>
+            </div>
+            <a href="#ceremonia" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="boda" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos-boda/60-fidelio-boda.jpg","fotos-boda/70-fidelio-boda.jpg","fotos-boda/80-fidelio-boda.jpg"]'></div>
+            <div class="content-center container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Cobertura fotográfica de la boda</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Capturamos desde la preparación hasta el final, preservando los instantes auténticos con sensibilidad documental.</p>
+                <div class="flex flex-col md:flex-row justify-center gap-8">
+                    <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-pink-500 w-full md:w-1/3 ring-2 ring-pink-500">
+                        <h3 class="text-2xl font-bold text-pink-400 mb-2">Cobertura Boda</h3>
+                        <p class="text-4xl font-bold mb-4">$600.000</p>
+                        <p class="text-gray-300">Ceremonia, civil mismo día, Fiesta hasta terminar. Material digital en alta calidad mediante link y pendrive
+                            (1 semana después del evento).</p>
+                            <p class="text-gray-300 mt-4"><small>Agregá por +$50.000 50 fotos impresas 13x18 mate</small></p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700 w-full md:w-1/3">
+                        <h3 class="text-2xl font-bold text-pink-400 mb-2">Segundo fotógrafo</h3>
+                        <p class="text-3xl font-bold mb-4">+$500.000</p>
+                        <p class="text-gray-300">Un segundo fotógrafo nos acompaña para tener más fotos de distintos ángulos.</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#fiesta" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="fotosenvivo" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos-boda/90-fidelio-boda.jpg","fotos-boda/100-fidelio-boda.jpg","fotos-boda/110-fidelio-boda.jpg"]'></div>
+            <div class="content-center container mx-auto px-4 text-center">
+                <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700 max-w-3xl mx-auto">
+                    <h3 class="text-2xl font-bold text-pink-400 mb-3">Fotos y Saludos de los invitados en vivo mediante pantalla gigante</h3>
+                    <p class="text-gray-300">Si tenés contratado en el salón WiFi y pantalla gigante, tenemos una app para pasar las fotos que vamos tomando EN VIVO, además los invitados pueden dejar un saludo y se proyecta junto con las fotos.</p>
+                    <button class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full text-sm mt-6" onclick="openPopup('video-en-vivo')">Ver muestra</button>
+                </div>
+            </div>
+            <a href="#civil" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="civil" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos-boda/15-fidelio-boda.jpg","fotos-boda/25-fidelio-boda.jpg","fotos-boda/35-fidelio-boda.jpg"]'></div>
+            <div class="content-center container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Civil distinto día</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Cobertura dedicada para el civil en una jornada separada, con foco en los detalles y la emoción auténtica.</p>
+                <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-pink-500 max-w-xl mx-auto">
+                    <p class="text-4xl font-bold mb-4">$150.000</p>
+                    <p class="text-gray-300">Cobertura de ceremonia civil en una jornada distinta a la boda principal, ideal para registrar cada momento del proceso completo.</p>
+                </div>
+            </div>
+            <a href="#preboda" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="preboda" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos-boda/20-fidelio-boda.jpg","fotos-boda/30-fidelio-boda.jpg","fotos-boda/40-fidelio-boda.jpg"]'></div>
+            <div class="content-center container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Fotos preboda</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Sesión de fotos con video alternado. Este material se puede usar para la tarjeta de invitación, para un video de "save the date" o un video de entrada.</p>
+                <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700 max-w-xl mx-auto">
+                    <p class="text-4xl font-bold mb-4">$180.000</p>
+                    <p class="text-gray-300">Foto y video alternados en una sesión previa que se usa para invitaciones, save the date o entrada. Incluye grabación cuidada y material listo para redes.</p>
+                    <button class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full text-sm mt-6" onclick="openPopup('sesion-pre-boda')">Ver muestra</button>
+                </div>
+            </div>
+            <a href="#fotolibros" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="fotolibros" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='[
+"fotos-boda/51-fidelio-boda.jpg",
+ "fotos-boda/86-fidelio-boda.jpg",
+ "fotos-boda/87-fidelio-boda.jpg",
+ "fotos-boda/88-fidelio-boda.jpg"
+            ]'>
+            </div>
+            <div class="content-center container mx-auto px-4 text-center ">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Fotolibros</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <div class="bg-gray-800 bg-opacity-75 p-4 md:p-6 rounded-lg border border-gray-700">
+                        <div class="flex justify-between">
+                            <h4 class="text-lg md:text-xl font-bold text-pink-400 mb-2">Fotolibro Sesión Previa</h4>
+                            <p class="text-xl md:text-2xl font-bold mb-3">$186.600</p>
+                        </div>
+                        <ul class="text-left text-gray-300 space-y-1">
+                            <li><strong>Tamaño:</strong> 30x60cm (abierto)</li>
+                            <li><strong>Tapa:</strong> Fotográfica rígida</li>
+                            <li><strong>Hojas:</strong> 10</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-4 md:p-6 rounded-lg border border-pink-500 ring-2 ring-pink-500">
+                        <div class="flex justify-between">
+                            <h4 class="text-lg md:text-xl font-bold text-pink-400 mb-2">Fotolibro Fiesta</h4>
+                            <p class="text-xl md:text-2xl font-bold mb-3">$338.600</p>
+                        </div>
+                        <ul class="text-left text-gray-300 space-y-1">
+                            <li><strong>Tamaño:</strong> 30x60cm (abierto)</li>
+                            <li><strong>Tapa:</strong> Fotográfica rígida</li>
+                            <li><strong>Hojas:</strong> 20</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-4 md:p-6 rounded-lg border border-gray-700">
+                        <div class="flex justify-between">
+                            <h4 class="text-lg md:text-xl font-bold text-pink-400 mb-2">Libro Firmas 30x90</h4>
+                            <p class="text-xl md:text-2xl font-bold mb-3">$116.000</p>
+                        </div>
+                        <ul class="text-left text-gray-300 space-y-1">
+                            <li><strong>Tamaño:</strong> 30x90cm (abierto)</li>
+                            <li><strong>Tapa:</strong> Fotográfica flexible</li>
+                            <li><strong>Hojas:</strong> 4</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-4 md:p-6 rounded-lg border border-gray-700">
+                        <div class="flex justify-between">
+                            <h4 class="text-lg md:text-xl font-bold text-pink-400 mb-2">Libro Firmas 30x60</h4>
+                            <p class="text-xl md:text-2xl font-bold mb-3">$80.600</p>
+                        </div>
+                        <ul class="text-left text-gray-300 space-y-1">
+                            <li><strong>Tamaño:</strong> 30x60cm (abierto)</li>
+                            <li><strong>Tapa:</strong> Fotográfica flexible</li>
+                            <li><strong>Hojas:</strong> 4</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <button class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full text-sm" onclick="openPopup('fotolibro')">Ver video ¿Qué es un fotolibro?</button>
+                </div>
+            </div>
+            <a href="#invitacion" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="invitacion" class="snap-section flex items-center justify-center text-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos-boda/60-fidelio-boda.jpg"]'></div>
+            <div class="content-center max-w-3xl mx-auto px-4 ">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Tarjeta de invitación</h2>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8">Sin cargo está incluida la tarjeta de invitación web que puede usar las fotos de la pre-boda.</p>
+                <a href="https://fidelio.com.ar/invitaciones/gise-gaston" target="_blank" class="bg-white hover:bg-gray-200 text-gray-800 font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105">Ver Muestra</a>
+            </div>
+            <a href="#galeria" class="scroll-arrow absolute bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="galeria" class="snap-section flex items-center justify-center bg-gray-900">
+            <div class="content-center container mx-auto px-4 text-center">
+                <div class="slider-wrapper">
+                    <div class="slider-track" id="slider-track"></div>
+                    <div class="slider-nav">
+                        <button class="slider-button" id="prev-btn" aria-label="Anterior">‹</button>
+                        <button class="slider-button" id="next-btn" aria-label="Siguiente">›</button>
+                    </div>
+                    <div class="slider-counter" id="slider-counter"></div>
+                </div>
+                <p class="text-sm text-gray-400 mt-4 slider-mobile-note">Desliza con el dedo para cambiar la foto en móviles.</p>
+            </div>
+            <a href="#video" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="video" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-video="fotos-boda/110-fidelio-boda.jpg"></div>
+            <div class="content-center container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Video de Boda</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-200 mb-8">Grabamos con equipos Sony en S-Log3 para una colorimetría precisa y un autoenfoque excelente. Entregamos un video de aproximadamente 15 minutos más otro de 3 minutos optimizado para redes sociales. Tiempo de entrega: 1 mes.</p>
+                <div class="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
+                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-gray-700 flex-1">
+                        <h3 class="text-xl font-bold text-pink-400 mb-2">1 cámara</h3>
+                        <p class="text-3xl font-bold mb-4">$850.000</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-6 rounded-lg border border-pink-500 ring-2 ring-pink-500 flex-1">
+                        <h3 class="text-xl font-bold text-pink-400 mb-2">2 cámaras</h3>
+                        <p class="text-3xl font-bold mb-4">$1.250.000</p>
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full text-sm" onclick="openPopup('video-boda-dos-camaras')">Ver muestra</button>
+                    </div>
+                </div>
+            </div>
+            <a href="#terminos" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <div id="video-popup" class="video-popup">
+            <div class="video-popup-content">
+                <span class="video-popup-close" onclick="closePopup()">&times;</span>
+                <div id="video-container"></div>
+            </div>
+        </div>
+
+        <section id="terminos" class="snap-section flex items-center justify-center bg-gray-800">
+            <div class="content-center container mx-auto px-6 py-16 max-w-4xl overflow-y-auto h-full">
+                <h2 class="text-3xl font-bold mb-6 text-center">Términos y Condiciones</h2>
+                <ul class="text-sm text-gray-300 space-y-3 text-left list-disc list-inside">
+                    <li>El servicio fotográfico debe abonarse al 100% antes del evento. Una vez abonado el total del servicio, se congela el precio. En caso de que haya un aumento, este solo se aplicará al porcentaje no abonado.</li>
+                    <li>Los valores del laboratorio fotográfico están sujetos a cambios sin previo aviso.</li>
+                    <li>El material digital de la boda estará disponible aproximadamente una semana después del evento.</li>
+                    <li>Para la sesión de fotos previa, se recomienda contratar servicio de maquillaje y peluquería, ya que esto es muy importante para garantizar la calidad de las tomas fotográficas, especialmente en materiales impresos, pantallas gigantes, fotoinvitaciones, entre otros.</li>
+                    <li>La sesión de fotos previa tiene una duración aproximada de 2 horas, con un máximo de 3 horas, y se realiza en un único día (no se puede dividir). Durante este tiempo, se pueden realizar tomas en el estudio fotográfico, al aire libre, de día o nocturnas, según se desee. Las fotos se realizan exclusivamente en Totoras y alrededores (con una tolerancia de 10 km). Para sesiones en otras locaciones, se deberá cotizar el costo adicional por distancia y viáticos.</li>
+                    <li>Para disponer de soportes impresos en la boda (fotolibros, cuadros, gigantografías, etc.), la sesión de fotos debe realizarse al menos 45 días antes del evento.</li>
+                    <li>El fotógrafo podrá utilizar el material capturado para fines promocionales en redes sociales. Si prefieren que esto no ocurra, les agradecemos informarlo con anticipación para respetar su decisión.</li>
+                    <li>Todas las fotos serán subidas a una galería web desde la cual podrán compartir el material, visualizarlo en el celular y descargar las fotos que deseen. La galería estará disponible durante varios años; sin embargo, se recomienda realizar un respaldo (backup) del material.</li>
+                    <li>En eventos con una duración superior a 4 horas, se solicita que el cliente provea al fotógrafo un refrigerio o una breve comida durante la cobertura.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const toggleMenu = () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            menuBtn.innerHTML = mobileMenu.classList.contains('hidden')
+                ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>`
+                : `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
+        };
+        menuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousels = document.querySelectorAll('.bg-carousel');
+            carousels.forEach(carousel => {
+                const videoSrc = carousel.dataset.video;
+                const imagesData = carousel.dataset.images;
+                if (videoSrc) {
+                    const imgEl = document.createElement('img');
+                    imgEl.src = videoSrc;
+                    imgEl.alt = '';
+                    imgEl.style.width = '100%';
+                    imgEl.style.height = '100%';
+                    imgEl.style.objectFit = 'cover';
+                    carousel.appendChild(imgEl);
+                } else if (imagesData) {
+                    const images = JSON.parse(imagesData);
+                    if (images.length === 0) return;
+                    images.forEach((imgSrc, index) => {
+                        const imgDiv = document.createElement('div');
+                        imgDiv.className = 'bg-carousel-image';
+                        imgDiv.style.backgroundImage = `url('${imgSrc}')`;
+                        if (index === 0) imgDiv.classList.add('active');
+                        carousel.appendChild(imgDiv);
+                    });
+                    if (images.length > 1) {
+                        let currentIndex = 0;
+                        setInterval(() => {
+                            const imageDivs = carousel.querySelectorAll('.bg-carousel-image');
+                            imageDivs[currentIndex].classList.remove('active');
+                            currentIndex = (currentIndex + 1) % imageDivs.length;
+                            imageDivs[currentIndex].classList.add('active');
+                        }, 5000);
+                    }
+                }
+            });
+
+            const imageCount = 122;
+            const sliderTrack = document.getElementById('slider-track');
+            const counter = document.getElementById('slider-counter');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slides = [];
+            for (let i = 1; i <= imageCount; i++) {
+                const slide = document.createElement('div');
+                slide.className = 'slider-slide';
+                const img = document.createElement('img');
+                img.src = `fotos-boda/${i}-fidelio-boda.jpg`;
+                img.alt = `Boda imagen ${i}`;
+                img.onerror = function() { this.style.display = 'none'; };
+                slide.appendChild(img);
+                sliderTrack.appendChild(slide);
+                slides.push(slide);
+            }
+            const updateSliderCounter = () => {
+                const activeIndex = Math.round(sliderTrack.scrollLeft / window.innerWidth);
+                counter.textContent = `${Math.min(Math.max(activeIndex + 1, 1), slides.length)} / ${slides.length}`;
+            };
+            prevBtn.addEventListener('click', () => {
+                sliderTrack.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
+            });
+            nextBtn.addEventListener('click', () => {
+                sliderTrack.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
+            });
+            sliderTrack.addEventListener('scroll', () => {
+                updateSliderCounter();
+            });
+            window.addEventListener('resize', updateSliderCounter);
+            sliderTrack.scrollLeft = 0;
+            updateSliderCounter();
+        });
+
+        const videoPopup = document.getElementById('video-popup');
+        const videoContainer = document.getElementById('video-container');
+        const videoIds = {
+            fiesta: 'ibaMsfM39Ew',
+            backstage: 'h5QJnz4IlvQ',
+            fotolibro: 'LxES-Yvt7f4'
+        };
+        const localVideoSrc = {
+            'video-en-vivo': 'videos/video-en-vivo.mp4',
+            'video-boda-dos-camaras': 'videos/video-boda-dos-camaras.mp4',
+            'sesion-pre-boda': 'videos/sesion-pre-boda.mp4'
+        };
+        function openPopup(videoType) {
+            const videoId = videoIds[videoType];
+            const localVideo = localVideoSrc[videoType];
+            if (videoId) {
+                videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                videoPopup.style.display = 'flex';
+            } else if (localVideo) {
+                videoContainer.innerHTML = `<video src="${localVideo}" controls playsinline style="width:100%;height:100%;max-height:100%;object-fit:contain;"></video>`;
+                videoPopup.style.display = 'flex';
+            }
+        }
+        function closePopup() {
+            videoContainer.innerHTML = '';
+            videoPopup.style.display = 'none';
+        }
+        videoPopup.addEventListener('click', function(event) {
+            if (event.target === videoPopup) closePopup();
+        });
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') closePopup();
+        });
+    </script>
+</body>
+</html>
