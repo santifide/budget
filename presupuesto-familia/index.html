@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto Familia - Fidelio Fotografía</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .snap-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+        .snap-section {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+        .bg-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.55);
+            z-index: 1;
+        }
+        .content-center {
+            position: relative;
+            z-index: 2;
+        }
+        .scroll-arrow {
+            position: absolute;
+            z-index: 10;
+        }
+        .bg-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .bg-carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .bg-carousel-image.active {
+            opacity: 1;
+        }
+        .number-input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .number-input-button {
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            user-select: none;
+            color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+    <header id="main-header" class="bg-black bg-opacity-50 backdrop-blur-sm p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold">Fidelio</a>
+            <nav class="hidden md:flex space-x-4">
+                <a href="#porque" class="hover:text-pink-400 transition-colors">Importancia</a>
+                <a href="#previa" class="hover:text-pink-400 transition-colors">Sesión Previa</a>
+                <a href="#porhora" class="hover:text-pink-400 transition-colors">Evento por hora</a>
+                <a href="#fotos-impresas" class="hover:text-pink-400 transition-colors">Impresiones</a>
+                <a href="#terminos" class="hover:text-pink-400 transition-colors">Términos</a>
+            </nav>
+            <button id="menu-btn" class="md:hidden z-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-95 z-40 hidden flex-col items-center justify-center space-y-6 text-2xl">
+        <a href="#porque" class="mobile-link">Importancia</a>
+        <a href="#previa" class="mobile-link">Sesión Previa</a>
+        <a href="#porhora" class="mobile-link">Evento por hora</a>
+        <a href="#fotos-impresas" class="mobile-link">Impresiones</a>
+        <a href="#terminos" class="mobile-link">Términos</a>
+    </div>
+
+    <main class="snap-container">
+        <section id="hero" class="snap-section flex items-center justify-center text-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/foto-familiar-1.jpg","fotos/foto-familiar-2.jpg","fotos/foto-familiar-3.jpg"]'></div>
+            <div class="content-center max-w-3xl mx-auto px-4">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">Fotografía familiar con emoción y estilo</h1>
+                <p class="text-lg md:text-2xl text-gray-300 mb-8">Sesiones para cumpleaños de 1 año, bautismos, comuniones y momentos íntimos en familia. Cada etapa merece una producción cuidada y un recuerdo que dure generaciones.</p>
+                <a href="#porque" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105">Comenzar</a>
+            </div>
+            <a href="#porque" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="porque" class="snap-section flex items-center justify-center text-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/foto-familiar-2.jpg","fotos/foto-familiar-4.jpg","fotos/foto-familiar-5.jpg"]'></div>
+            <div class="content-center max-w-3xl mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Por qué es importante fotografiar a la familia</h2>
+                <p class="text-xl md:text-2xl text-gray-200">Los niños crecen rápido y cada momento familiar vale más de lo que imaginamos. Las sesiones de cumpleaños, bautismos y comuniones documentan los sentimientos, las sonrisas y los abrazos, con la mejor calidad para que vuelvas a vivirlos siempre.</p>
+            </div>
+            <a href="#previa" class="scroll-arrow absolute bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="previa" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/foto-familiar-3.jpg","fotos/foto-familiar-1.jpg","fotos/foto-familiar-4.jpg"]'></div>
+            <div class="content-center container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Sesión previa</h2>
+                <p class="max-w-3xl mx-auto text-gray-200 mb-8">Ideal para retratos familiares, primeros cumpleaños, bautismos y comuniones. Las fotos previas sirven para tener material emocional de alta calidad y, si lo deseas, también se pueden usar para tarjetas, invitaciones o decoración del evento.</p>
+                <div class="grid gap-8 md:grid-cols-2">
+                    <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-pink-500 ring-2 ring-pink-500">
+                        <h3 class="text-2xl font-bold text-pink-400 mb-2">Foto en estudio</h3>
+                        <p class="text-4xl font-bold mb-4">$50.000</p>
+                        <p class="text-gray-300">Sesión en estudio con enfoque en retratos familiares y primeros planos especiales para bebés, hermanos y padres.</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700">
+                        <h3 class="text-2xl font-bold text-pink-400 mb-2">Foto en estudio + exterior</h3>
+                        <p class="text-4xl font-bold mb-4">$70.000</p>
+                        <p class="text-gray-300">Estudio + locación exterior con más opciones de luz natural, movimiento y fondos ideales para familias y eventos infantiles.</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#porhora" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="porhora" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/foto-familiar-5.jpg","fotos/foto-familiar-2.jpg","fotos/foto-familiar-4.jpg"]'></div>
+            <div class="content-center container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Evento por hora</h2>
+                <p class="max-w-3xl mx-auto text-gray-200 mb-8">Cobertura por hora para cumpleaños, bautismos, comuniones y celebraciones familiares íntimas. Ideal cuando querés capturar el momento con profesionalismo sin contratar una cobertura completa.</p>
+                <div class="bg-gray-800 bg-opacity-75 p-8 rounded-lg border border-gray-700 max-w-md mx-auto">
+                    <p class="text-lg text-gray-300">Primera hora: $70.000</p>
+                    <p class="text-lg text-gray-300 mb-4">Horas adicionales: $50.000 p/hora</p>
+                    <div class="my-4">
+                        <label for="horas-evento" class="text-lg">Horas totales:</label>
+                        <div class="number-input-container mt-2">
+                            <button id="evento-decrement" class="number-input-button">-</button>
+                            <input type="number" id="horas-evento" value="1" min="1" step="0.5" class="bg-gray-700 text-white text-center w-20 p-2 rounded appearance-none [-moz-appearance:textfield]">
+                            <button id="evento-increment" class="number-input-button">+</button>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-bold">Total: <span id="precio-evento">$70.000</span></p>
+                </div>
+            </div>
+            <a href="#fotos-impresas" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="fotos-impresas" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/foto-familiar-1.jpg","fotos/foto-familiar-3.jpg","fotos/foto-familiar-5.jpg"]'></div>
+            <div class="content-center container mx-auto px-3 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Fotos impresas</h2>
+                <div class="bg-gray-800 bg-opacity-75 p-4 rounded-lg border border-gray-700 text-left max-w-5xl mx-auto">
+                    <table class="w-full text-left text-gray-300 border border-gray-700 rounded overflow-hidden text-sm">
+                        <thead class="bg-gray-900 text-gray-200">
+                            <tr>
+                                <th class="px-3 py-2">Tamaño</th>
+                                <th class="px-3 py-2">Precio unidad</th>
+                                <th class="px-3 py-2">Cantidad</th>
+                                <th class="px-3 py-2">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">9x13</td>
+                                <td class="px-3 py-2">$900</td>
+                                <td class="px-3 py-2"><input class="w-full bg-gray-900 border border-gray-700 text-white p-1 rounded" type="number" min="0" value="0" data-price="900" data-row="1"></td>
+                                <td class="px-3 py-2 text-right" id="row-total-1">$0</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">10x15</td>
+                                <td class="px-3 py-2">$1.000</td>
+                                <td class="px-3 py-2"><input class="w-full bg-gray-900 border border-gray-700 text-white p-1 rounded" type="number" min="0" value="0" data-price="1000" data-row="2"></td>
+                                <td class="px-3 py-2 text-right" id="row-total-2">$0</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">13x18</td>
+                                <td class="px-3 py-2">$1.400</td>
+                                <td class="px-3 py-2"><input class="w-full bg-gray-900 border border-gray-700 text-white p-1 rounded" type="number" min="0" value="0" data-price="1400" data-row="3"></td>
+                                <td class="px-3 py-2 text-right" id="row-total-3">$0</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">15x21</td>
+                                <td class="px-3 py-2">$1.600</td>
+                                <td class="px-3 py-2"><input class="w-full bg-gray-900 border border-gray-700 text-white p-1 rounded" type="number" min="0" value="0" data-price="1600" data-row="4"></td>
+                                <td class="px-3 py-2 text-right" id="row-total-4">$0</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">20x30</td>
+                                <td class="px-3 py-2">$3.400</td>
+                                <td class="px-3 py-2"><input class="w-full bg-gray-900 border border-gray-700 text-white p-1 rounded" type="number" min="0" value="0" data-price="3400" data-row="5"></td>
+                                <td class="px-3 py-2 text-right" id="row-total-5">$0</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">30x45</td>
+                                <td class="px-3 py-2">$7.600</td>
+                                <td class="px-3 py-2"><input class="w-full bg-gray-900 border border-gray-700 text-white p-1 rounded" type="number" min="0" value="0" data-price="7600" data-row="6"></td>
+                                <td class="px-3 py-2 text-right" id="row-total-6">$0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-3 text-right text-gray-200 text-base">Total impresiones: <span id="grand-total-impresiones">$15.900</span></div>
+                </div>
+            </div>
+            <a href="#fotolibro" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="fotolibro" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/foto-familiar-2.jpg","fotos/foto-familiar-3.jpg","fotos/foto-familiar-4.jpg"]'></div>
+            <div class="content-center container mx-auto px-3 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Fotolibro</h2>
+                <div class="bg-gray-800 bg-opacity-75 p-4 rounded-lg border border-gray-700 text-left max-w-5xl mx-auto">
+                    <table class="w-full text-left text-gray-300 border border-gray-700 rounded overflow-hidden text-sm">
+                        <thead class="bg-gray-900 text-gray-200">
+                            <tr>
+                                <th class="px-3 py-2">Producto</th>
+                                <th class="px-3 py-2">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">Fotolibro Tapa Flexible + 4 hojas 20x30cms</td>
+                                <td class="px-3 py-2 text-right">$38.400</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">Fotolibro Tapa Flexible + 4 hojas 30x45cms</td>
+                                <td class="px-3 py-2 text-right">$54.400</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">Fotolibro Tapa Flexible + 4 hojas 30x60cms</td>
+                                <td class="px-3 py-2 text-right">$65.400</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">Fotolibro 20x30cms abierto de 10 hojas + tapa rígida</td>
+                                <td class="px-3 py-2 text-right">$128.000</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">Fotolibro 30x45cms abierto de 10 hojas + tapa rígida</td>
+                                <td class="px-3 py-2 text-right">$168.800</td>
+                            </tr>
+                            <tr class="border-t border-gray-700">
+                                <td class="px-3 py-2">Fotolibro 30x60cms abierto de 10 hojas + tapa rígida</td>
+                                <td class="px-3 py-2 text-right">$186.600</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-4 text-right">
+                        <button class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full text-sm" onclick="openPopup('fotolibro')">Ver video ¿Qué es un fotolibro?</button>
+                    </div>
+                </div>
+            </div>
+            <a href="#cuadros" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+
+        <section id="cuadros" class="snap-section flex items-center justify-center bg-overlay">
+            <div class="bg-carousel" data-images='["fotos/foto-familiar-1.jpg","fotos/foto-familiar-4.jpg","fotos/foto-familiar-5.jpg"]'></div>
+            <div class="content-center container mx-auto px-3 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Cuadros</h2>
+                <div class="bg-gray-800 bg-opacity-75 p-4 rounded-lg border border-gray-700 text-left max-w-5xl mx-auto">
+                    <h3 class="text-2xl font-bold text-pink-400 mb-4">Cuadros canvas</h3>
+                    <table class="w-full text-left text-gray-300 border border-gray-700 rounded overflow-hidden text-sm mb-6">
+                        <thead class="bg-gray-900 text-gray-200">
+                            <tr>
+                                <th class="px-3 py-2">Tamaño</th>
+                                <th class="px-3 py-2">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">20x30 cms</td><td class="px-3 py-2 text-right">$30.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">30x40 cms</td><td class="px-3 py-2 text-right">$40.600</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">40x60 cms</td><td class="px-3 py-2 text-right">$56.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">50x80 cms</td><td class="px-3 py-2 text-right">$69.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">60x90 cms</td><td class="px-3 py-2 text-right">$79.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">70x100 cms</td><td class="px-3 py-2 text-right">$95.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">100x120 cms</td><td class="px-3 py-2 text-right">$136.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">100x160 cms</td><td class="px-3 py-2 text-right">$166.000</td></tr>
+                        </tbody>
+                    </table>
+                    <h3 class="text-2xl font-bold text-pink-400 mb-4">Cuadros tipo bastidores</h3>
+                    <table class="w-full text-left text-gray-300 border border-gray-700 rounded overflow-hidden text-sm">
+                        <thead class="bg-gray-900 text-gray-200">
+                            <tr>
+                                <th class="px-3 py-2">Producto</th>
+                                <th class="px-3 py-2">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">Tipo bastidor mate brillo</td><td class="px-3 py-2 text-right">$0</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">15x21</td><td class="px-3 py-2 text-right">$6.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">20x30</td><td class="px-3 py-2 text-right">$10.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">20x40</td><td class="px-3 py-2 text-right">$15.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">30x30</td><td class="px-3 py-2 text-right">$16.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">30x40</td><td class="px-3 py-2 text-right">$17.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">30x45</td><td class="px-3 py-2 text-right">$20.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">30x60</td><td class="px-3 py-2 text-right">$26.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">40x40</td><td class="px-3 py-2 text-right">$28.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">40x50</td><td class="px-3 py-2 text-right">$33.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">40x60</td><td class="px-3 py-2 text-right">$36.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">50x50</td><td class="px-3 py-2 text-right">$36.400</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">50x60</td><td class="px-3 py-2 text-right">$42.000</td></tr>
+                            <tr class="border-t border-gray-700"><td class="px-3 py-2">50x70</td><td class="px-3 py-2 text-right">$44.000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <a href="#terminos" class="scroll-arrow bottom-10 animate-bounce cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </a>
+        </section>
+        <div id="video-popup" class="video-popup">
+            <div class="video-popup-content">
+                <span class="video-popup-close" onclick="closePopup()">&times;</span>
+                <div id="video-container"></div>
+            </div>
+        </div>
+
+        <section id="terminos" class="snap-section flex items-center justify-center bg-gray-800">
+            <div class="content-center container mx-auto px-6 py-16 max-w-4xl overflow-y-auto h-full">
+                <h2 class="text-3xl font-bold mb-6 text-center">Términos y Condiciones</h2>
+                <ul class="text-sm text-gray-300 space-y-3 text-left list-disc list-inside">
+                    <li>El servicio fotográfico debe abonarse al 100% antes del evento. Una vez abonado el total del servicio, se congela el precio. En caso de que haya un aumento, este solo se aplicará al porcentaje no abonado.</li>
+                    <li>Los valores del laboratorio fotográfico están sujetos a cambios sin previo aviso.</li>
+                    <li>El material digital estará disponible aproximadamente una semana después del evento.</li>
+                    <li>Para la sesión de fotos previa, se recomienda contratar servicio de maquillaje y peluquería, ya que esto es muy importante para garantizar la calidad de las tomas fotográficas, especialmente en materiales impresos.</li>
+                    <li>La sesión de fotos previa tiene una duración aproximada de 2 horas, con un máximo de 4 horas, y se realiza en un único día (no se puede dividir). Durante este tiempo, se pueden realizar tomas en el estudio fotográfico, al aire libre, de día o nocturnas, según se desee. Las fotos se realizan exclusivamente en Totoras y alrededores (con una tolerancia de 10 km). Para sesiones en otras locaciones, se deberá cotizar el costo adicional por distancia y viáticos.</li>
+                    <li>Para disponer de soportes impresos, la sesión de fotos debe realizarse al menos 45 días antes del evento.</li>
+                    <li>El fotógrafo podrá utilizar el material capturado para fines promocionales en redes sociales. Si prefieren que esto no ocurra, les agradecemos informarlo con anticipación para respetar su decisión.</li>
+                    <li>Todas las fotos serán subidas a una galería web desde la cual podrán compartir el material, visualizarlo en el celular y descargar las fotos que deseen. La galería estará disponible durante varios años; sin embargo, se recomienda realizar un respaldo del material.</li>
+                    <li>En eventos con una duración superior a 4 horas, se solicita que el cliente provea al fotógrafo un refrigerio o una breve comida durante la cobertura.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        const toggleMenu = () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            menuBtn.innerHTML = mobileMenu.classList.contains('hidden')
+                ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>`
+                : `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
+        };
+
+        menuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        const horasInput = document.getElementById('horas-evento');
+        const precioEventoSpan = document.getElementById('precio-evento');
+        const precioBase = 70000;
+        const precioPorHoraAdicional = 50000;
+        const decrementBtn = document.getElementById('evento-decrement');
+        const incrementBtn = document.getElementById('evento-increment');
+        const step = 0.5;
+
+        const calcularPrecioEvento = () => {
+            let horas = parseFloat(horasInput.value);
+            if (isNaN(horas) || horas < 1) {
+                horas = 1;
+                horasInput.value = 1;
+            }
+            let costoTotal = precioBase;
+            if (horas > 1) {
+                costoTotal += (horas - 1) * precioPorHoraAdicional;
+            }
+            precioEventoSpan.textContent = `$${costoTotal.toLocaleString('es-AR')}`;
+        };
+
+        horasInput.addEventListener('input', calcularPrecioEvento);
+        decrementBtn.addEventListener('click', () => {
+            let currentValue = parseFloat(horasInput.value);
+            if (currentValue - step >= 1) {
+                horasInput.value = (currentValue - step).toFixed(1);
+                calcularPrecioEvento();
+            }
+        });
+        incrementBtn.addEventListener('click', () => {
+            let currentValue = parseFloat(horasInput.value);
+            horasInput.value = (currentValue + step).toFixed(1);
+            calcularPrecioEvento();
+        });
+
+        const printInputs = document.querySelectorAll('[data-price][data-row]');
+        const grandTotalImpresiones = document.getElementById('grand-total-impresiones');
+        const videoPopup = document.getElementById('video-popup');
+        const videoContainer = document.getElementById('video-container');
+
+        const videoIds = {
+            fotolibro: 'LxES-Yvt7f4',
+            cuadro: 'LxES-Yvt7f4'
+        };
+
+        const actualizarImpresiones = () => {
+            let totalGeneral = 0;
+            printInputs.forEach(input => {
+                const precio = parseInt(input.dataset.price, 10) || 0;
+                let cantidad = parseInt(input.value, 10);
+                if (isNaN(cantidad) || cantidad < 0) cantidad = 0;
+                input.value = cantidad;
+                const totalRow = precio * cantidad;
+                const rowTotalEl = document.getElementById(`row-total-${input.dataset.row}`);
+                if (rowTotalEl) {
+                    rowTotalEl.textContent = `$${totalRow.toLocaleString('es-AR')}`;
+                }
+                totalGeneral += totalRow;
+            });
+            if (grandTotalImpresiones) {
+                grandTotalImpresiones.textContent = `$${totalGeneral.toLocaleString('es-AR')}`;
+            }
+        };
+
+        const openPopup = (videoType) => {
+            const videoId = videoIds[videoType];
+            if (!videoId) return;
+            videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            videoPopup.style.display = 'flex';
+        };
+
+        const closePopup = () => {
+            videoContainer.innerHTML = '';
+            videoPopup.style.display = 'none';
+        };
+
+        printInputs.forEach(input => input.addEventListener('input', actualizarImpresiones));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousels = document.querySelectorAll('.bg-carousel');
+            carousels.forEach(carousel => {
+                const imagesData = carousel.dataset.images;
+                if (!imagesData) return;
+                const images = JSON.parse(imagesData);
+                if (images.length === 0) return;
+                images.forEach((imgSrc, index) => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.className = 'bg-carousel-image';
+                    imgDiv.style.backgroundImage = `url('${imgSrc}')`;
+                    if (index === 0) imgDiv.classList.add('active');
+                    carousel.appendChild(imgDiv);
+                });
+                if (images.length > 1) {
+                    let currentIndex = 0;
+                    setInterval(() => {
+                        const imageDivs = carousel.querySelectorAll('.bg-carousel-image');
+                        imageDivs[currentIndex].classList.remove('active');
+                        currentIndex = (currentIndex + 1) % images.length;
+                        imageDivs[currentIndex].classList.add('active');
+                    }, 5000);
+                }
+            });
+            calcularPrecioEvento();
+            actualizarImpresiones();
+        });
+
+        videoPopup.addEventListener('click', function(event) {
+            if (event.target === videoPopup) {
+                closePopup();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePopup();
+            }
+        });
+    </script>
+</body>
+</html>
